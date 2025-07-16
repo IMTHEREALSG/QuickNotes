@@ -19,12 +19,10 @@ export class NotesList extends LitElement {
             transition: all 0.3s ease;
         }
 
-        /* Grid Layout */
         .notes-list.grid-layout {
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         }
 
-        /* List Layout */
         .notes-list.list-layout {
             grid-template-columns: 1fr;
             max-width: 800px;
@@ -54,7 +52,6 @@ export class NotesList extends LitElement {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
-        /* Note Title */
         .note-title {
             margin: 0 0 12px 0;
             font-size: 18px;
@@ -69,7 +66,6 @@ export class NotesList extends LitElement {
             margin-bottom: 8px;
         }
 
-        /* Note Content */
         .note-content {
             margin: 0 0 20px 0;
             font-size: 14px;
@@ -89,7 +85,6 @@ export class NotesList extends LitElement {
             margin-bottom: 16px;
         }
 
-        /* Note Footer */
         .note-footer {
             display: flex;
             justify-content: space-between;
@@ -108,7 +103,6 @@ export class NotesList extends LitElement {
             font-size: 13px;
         }
 
-        /* Delete Button */
         .delete-btn {
             background: transparent;
             border: 1px solid #e5e7eb;
@@ -161,7 +155,6 @@ export class NotesList extends LitElement {
             opacity: 0.5;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .notes-list {
                 padding: 16px;
@@ -204,7 +197,6 @@ export class NotesList extends LitElement {
             }
         }
 
-        /* Animation for new notes */
         .note-card {
             animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -220,7 +212,6 @@ export class NotesList extends LitElement {
             }
         }
 
-        /* List layout specific styles */
         .list-layout .note-card {
             display: flex;
             flex-direction: column;
@@ -231,7 +222,6 @@ export class NotesList extends LitElement {
             transform: translateX(4px);
         }
 
-        /* Focus states for accessibility */
         .delete-btn:focus-visible {
             outline: 2px solid #3b82f6;
             outline-offset: 2px;
@@ -242,7 +232,6 @@ export class NotesList extends LitElement {
             outline-offset: 2px;
         }
 
-        /* Loading skeleton (if needed) */
         .note-skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
@@ -308,7 +297,7 @@ export class NotesList extends LitElement {
     }
 
     deleteNote(event, id) {
-        event.stopPropagation(); // Prevent card click
+        event.stopPropagation(); 
         
         this.dispatchEvent(new CustomEvent('note-deleted', {
             detail: { id },

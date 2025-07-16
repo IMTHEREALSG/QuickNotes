@@ -99,7 +99,6 @@ export class QuickNotesApp extends LitElement {
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* Stats section */
         .stats {
             display: flex;
             gap: 16px;
@@ -134,7 +133,6 @@ export class QuickNotesApp extends LitElement {
             letter-spacing: 0.5px;
         }
 
-        /* Content area */
         .content {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 16px;
@@ -143,7 +141,6 @@ export class QuickNotesApp extends LitElement {
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             :host {
                 padding: 0 16px;
@@ -188,7 +185,6 @@ export class QuickNotesApp extends LitElement {
             }
         }
 
-        /* Loading animation */
         .loading {
             display: flex;
             justify-content: center;
@@ -229,13 +225,11 @@ export class QuickNotesApp extends LitElement {
             }
         }
 
-        /* Focus states for accessibility */
         .view-btn:focus-visible {
             outline: 2px solid #3b82f6;
             outline-offset: 2px;
         }
 
-        /* Glassmorphism effects */
         .header, .content {
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -313,8 +307,8 @@ export class QuickNotesApp extends LitElement {
     }
 
     cancelled() {
-        // Handle cancellation if needed
-    }
+        console.log('Note input cancelled');
+  }
 
     loadNotes() {
         const savedNotes = localStorage.getItem('qnotes');
@@ -338,7 +332,6 @@ export class QuickNotesApp extends LitElement {
         this.saveNotes();
     }
 
-    // Utility methods for stats
     getNotesThisWeek() {
         const weekAgo = new Date();
         weekAgo.setDate(weekAgo.getDate() - 7);

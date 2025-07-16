@@ -218,7 +218,6 @@ export class NoteInput extends LitElement {
             }
         }
 
-        /* Loading state animation */
         .save.loading::after {
             content: '';
             position: absolute;
@@ -238,13 +237,11 @@ export class NoteInput extends LitElement {
             100% { transform: rotate(360deg); }
         }
 
-        /* Enhanced collapsed state */
         .note-input.collapsed .title-input {
             cursor: pointer;
             padding: 12px 0;
         }
 
-        /* Smooth expand animation */
         .note-input:not(.collapsed) {
             animation: expandIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -259,22 +256,13 @@ export class NoteInput extends LitElement {
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
             }
         }
-
-        /* Character counter (if needed) */
-        .char-counter {
-            font-size: 12px;
-            color: #9ca3af;
-            text-align: right;
-            margin-top: -8px;
-            margin-bottom: 8px;
-        }
     `;
 
     constructor() {
         super();
         this.title = '';
         this.content = '';
-        this.collapsed = true; // Start collapsed for better UX
+        this.collapsed = true; 
         this.buttonText = 'Save';
     }
 
@@ -324,14 +312,13 @@ export class NoteInput extends LitElement {
     }
 
     _handleKeydown(e) {
-        // Ctrl/Cmd + Enter to save
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             e.preventDefault();
             if (this.title.trim() || this.content.trim()) {
                 this.savenote();
             }
         }
-        // Escape to cancel
+       
         if (e.key === 'Escape') {
             e.preventDefault();
             this.cancelnote();
@@ -340,7 +327,7 @@ export class NoteInput extends LitElement {
 
     savenote() {
         if (!this.title.trim() && !this.content.trim()) {
-            return; // Button should be disabled
+            return;
         }
 
         const note = {
@@ -356,7 +343,6 @@ export class NoteInput extends LitElement {
             composed: true
         }));
 
-        // Reset form
         this.title = '';
         this.content = '';
         this.collapsed = true;
