@@ -102,6 +102,26 @@ export class NotesList extends LitElement {
         .list-layout .note-date {
             font-size: 13px;
         }
+        
+        .note-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+        .edit-btn {
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: translateX(10px);
+        }
 
         .delete-btn {
             background: transparent;
@@ -116,10 +136,22 @@ export class NotesList extends LitElement {
             opacity: 0;
             transform: translateX(10px);
         }
+        
+        .note-card:hover .edit-btn {
+        opacity: 1;
+        transform: translateX(0);
+    }
 
         .note-card:hover .delete-btn {
             opacity: 1;
             transform: translateX(0);
+        }
+
+        .edit-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+            color:#2563eb;
+            transform: translateY(-1px);
         }
 
         .delete-btn:hover {
@@ -128,6 +160,12 @@ export class NotesList extends LitElement {
             color: #dc2626;
             transform: translateY(-1px);
         }
+
+
+        .edit-btn:active {
+        transform: translateY(0);
+        background: #bfdbfe;
+    }
 
         .delete-btn:active {
             transform: translateY(0);
@@ -178,6 +216,13 @@ export class NotesList extends LitElement {
                 -webkit-line-clamp: 4;
             }
 
+            .edit-btn {
+            opacity: 1;
+            transform: translateX(0);
+            font-size: 11px;
+            padding: 4px 8px;
+        }
+
             .delete-btn {
                 opacity: 1;
                 transform: translateX(0);
@@ -222,6 +267,10 @@ export class NotesList extends LitElement {
             transform: translateX(4px);
         }
 
+        .edit-btn:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+    }
         .delete-btn:focus-visible {
             outline: 2px solid #3b82f6;
             outline-offset: 2px;
@@ -284,6 +333,14 @@ export class NotesList extends LitElement {
                         day: 'numeric'
                     })}
                 </span>
+                <div class="note-actions">
+                <button 
+                    class="edit-btn" 
+                    @click=${(e)=> this.editNote(e,note)}
+                    aria-label="Edit note"
+                >
+                    Edit
+                </button>
                 <button 
                     class="delete-btn" 
                     @click=${(e) => this.deleteNote(e, note.id)}
@@ -291,10 +348,24 @@ export class NotesList extends LitElement {
                 >
                     Delete
                 </button>
+                </div>
             </div>
         </div>
         `;
     }
+    
+
+    editNote(event,note){
+        event.stopPropagation(); 
+        
+        this.dispatchEvent(new CustomEvent('note-edited', {
+            detail: { note },
+            bubbles: true,
+            composed: true
+        }));
+    }
+
+
 
     deleteNote(event, id) {
         event.stopPropagation(); 

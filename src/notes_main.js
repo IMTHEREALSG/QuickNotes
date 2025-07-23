@@ -283,13 +283,15 @@ export class QuickNotesApp extends LitElement {
             <div class="content">
                 <note-input 
                     @note-saved=${this.saved}
-                    @note-cancelled=${this.cancelled}>
+                    @note-cancelled=${this.cancelled}
+                    @note-updated=${this.noteUpdated}>
                 </note-input>
 
                 <notes-list 
                     .notes=${this.notes} 
                     .layout=${this.viewMode}
-                    @note-deleted=${this.deleteNotes}>
+                    @note-deleted=${this.deleteNotes}
+                    @note-edited=${this.editNote}>
                 </notes-list>
             </div>
         </div>
@@ -346,6 +348,21 @@ export class QuickNotesApp extends LitElement {
             const contentWords = note.content ? note.content.split(/\s+/).length : 0;
             return total + titleWords + contentWords;
         }, 0);
+    }
+
+
+    noteUpdated(e){
+        const updatedNote = e.detail;
+        this.notes = this.notes.map( note => note.id === updatedNote.id ? updatedNote : note);
+        this.saveNotes();
+    }
+
+    editNote(e){
+        const editingNote = e.detail.note;
+        const noteInput = this.shadowRoot.querySelector('note-input');
+        if (noteInput) {
+            noteInput.startEdit(editingNote);
+        }
     }
 }
 

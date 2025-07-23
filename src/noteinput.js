@@ -13,6 +13,12 @@ export class NoteInput extends LitElement {
         },
         buttonText: {
             type: String
+        },
+        isEditing: {
+            type: Boolean
+        },
+        editingNote: {
+            type: Object
         }
     }
 
@@ -264,6 +270,8 @@ export class NoteInput extends LitElement {
         this.content = '';
         this.collapsed = true; 
         this.buttonText = 'Save';
+        this.isEditing = false;
+        this.editingNote = null; 
     }
 
     render() {
@@ -330,18 +338,32 @@ export class NoteInput extends LitElement {
             return;
         }
 
-        const note = {
-            id: Date.now().toString(),
-            title: this.title.trim(),
-            content: this.content.trim(),
-            createdAt: new Date().toISOString(),
-        }
+        if(this.isEditing && this.editingNote){
+            const updatedNote = {
+                ...this.editingNote,
+                title: this.title.trim(),
+                content: this.content.trim(),
+                updatedAt: new Date().toISOString()
+            };
+            this.dispatchEvent(new CustomEvent('note-updated',{
+                detail: updatedNote,
+                bubbles: true,
+                composed: true
+            }));
+        }else{
+            const newNote = {
+                id : Date.now().toString(),
+                title: this.title.trim(),
+                content: this.content.trim(),
+                createdAt: new Date().toISOString(),
+            };
 
-        this.dispatchEvent(new CustomEvent('note-saved', {
-            detail: note,
-            bubbles: true,
-            composed: true
-        }));
+            this.dispatchEvent(new CustomEvent('note-saved',{
+                detail: newNote,
+                bubbles: true,
+                composed: true
+            }));
+        }
 
         this.title = '';
         this.content = '';
@@ -353,11 +375,27 @@ export class NoteInput extends LitElement {
             bubbles: true,
             composed: true
         }));
-        
-        // Reset form
+
         this.title = '';
         this.content = '';
         this.collapsed = true;
+    }
+
+
+    startEdit(note){
+        this.title = note.title || '';
+        this.content = note.content || '';
+        this.collapsed = false;
+        this.isEditing = true;
+        this.editingNote = note;
+        this.buttonText = 'Update';
+
+        this.updateComplete.then(()=>{
+            const titleInput = this.shadowRoot.querySelector('.title-input');
+            if (titleInput) {
+                titleInput.focus();
+            }
+        });
     }
 }
 
