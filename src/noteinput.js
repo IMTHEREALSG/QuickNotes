@@ -368,6 +368,9 @@ export class NoteInput extends LitElement {
         this.title = '';
         this.content = '';
         this.collapsed = true;
+        this.buttonText = 'Save';
+        this.isEditing = false;
+        this.editingNote = null;
     }
 
     cancelnote() {
