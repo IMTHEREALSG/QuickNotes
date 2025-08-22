@@ -224,25 +224,6 @@ export class NoteInput extends LitElement {
             }
         }
 
-        .save.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 16px;
-            height: 16px;
-            margin: -8px 0 0 -8px;
-            border: 2px solid transparent;
-            border-top: 2px solid #ffffff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .note-input.collapsed .title-input {
             cursor: pointer;
             padding: 12px 0;

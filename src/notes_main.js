@@ -51,7 +51,7 @@ export class QuickNotesApp extends LitElement {
             font-weight: 700;
             color: #2d3748;
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
